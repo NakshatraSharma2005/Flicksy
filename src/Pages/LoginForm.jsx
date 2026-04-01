@@ -10,14 +10,31 @@ import {
 } from "@tabler/icons-react";
 
 export default function LoginForm() {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Login submitted");
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            alert("No account found, please sign up first");
+            return;
+        }
+        if (user.email !== email) {
+            alert("Email not found");
+            return;
+        }
+        if (user.password !== password) {
+            alert("Wrong password");
+            return;
+        }
+        localStorage.setItem("isLoggedIn", "true");
+        alert("Login successful 🔥");
+        window.location.href = "/home";
     };
     function goToSignup() {
         window.location.href = "/";
     }
-
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100 dark:bg-black">
@@ -48,6 +65,7 @@ export default function LoginForm() {
                         <Input
                             id="email"
                             placeholder="Enter your email or username"
+                            onChange={(e) => setEmail(e.target.value)}
                             type="text"
                             className="focus:ring-2 focus:ring-black focus:border-transparent bg-gray-50"
                         />
@@ -59,6 +77,7 @@ export default function LoginForm() {
                         <Input
                             id="password"
                             placeholder="••••••••"
+                            onChange={(e) => setPassword(e.target.value)}
                             type="password"
                             className="focus:ring-2 focus:ring-black focus:border-transparent bg-gray-50"
                         />
@@ -107,9 +126,9 @@ export default function LoginForm() {
                     {/* SIGNUP LINK */}
                     <p className="text-center text-sm text-neutral-600 mt-6">
                         Don't have an account?{" "}
-                        <span className="text-black font-semibold cursor-pointer hover:text-neutral-700 hover:underline"
-                        onClick={goToSignup}
-                        >
+                        <span
+                            className="text-black font-semibold cursor-pointer hover:text-neutral-700 hover:underline"
+                            onClick={goToSignup}>
                             Sign up
                         </span>
                     </p>

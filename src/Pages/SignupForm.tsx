@@ -168,6 +168,8 @@ export default function SignupForm() {
             return;
         }
 
+
+        localStorage.setItem( "user", JSON.stringify({ firstname, lastname, email, password }) );
         navigate("/UploadProfilePhoto", { state: { firstname, email } });
     };
 

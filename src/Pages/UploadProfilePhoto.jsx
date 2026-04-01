@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 export default function ProfileSetup() {
-        const navigate = useNavigate();
-            const [ProfileImage, setProfileImage] = useState(null);
+    const navigate = useNavigate();
+    const [ProfileImage, setProfileImage] = useState(null);
     const location = useLocation();
     const firstname = location.state?.firstname;
     const email = location.state?.email;
@@ -28,7 +28,10 @@ export default function ProfileSetup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Bio:", bio);
-        navigate("/home", { state: { ProfileImage, bio, firstname, email } });
+        const user = JSON.parse(localStorage.getItem("user")) || {};
+        const updatedUser = { ...user, ProfileImage, bio };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        navigate("/home", { state: updatedUser });
     };
 
     return (
@@ -61,10 +64,10 @@ export default function ProfileSetup() {
                         </Label>
 
                         <div className="mt-2">
-                            <FileUpload onChange={handleFile}/>
+                            <FileUpload onChange={handleFile} />
                         </div>
                     </div>
- 
+
                     {/* BIO */}
                     <div className="mb-6">
                         <Label className="text-sm font-medium">Bio</Label>
@@ -82,7 +85,7 @@ export default function ProfileSetup() {
                         type="submit"
                         className="h-12 w-full rounded-lg bg-black text-white font-semibold hover:bg-neutral-900 hover:scale-[1.01] transition-all"
                         // onClick={()=>navigate("/home", {state:{ProfileImage}})}
-                        >
+                    >
                         Continue →
                     </button>
                 </form>
