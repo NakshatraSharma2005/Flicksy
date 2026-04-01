@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import CreatePost from "./Pages/CreatePost";
 import PostDetails from "./Pages/PostDetails";
-import SignupForm from "./pages/signupfORM"
-import LoginForm from "./pages/LoginForm";
+import SignupForm from "./Pages/SignupForm"
+import LoginForm from "./Pages/LoginForm";
 import ProfileSetup from "./Pages/UploadProfilePhoto"
 
 
